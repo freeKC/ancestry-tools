@@ -1,0 +1,8 @@
+[
+ {"user": {"login": "fixwright", "type": "User"}, "created_at": "2026-10-09T11:00:00Z", "body": "/claim\nI'll take this one."},
+ {"user": {"login": "michaelwoolum50-cmyk", "type": "User"}, "created_at": "2026-10-09T12:00:00Z", "body": "Proposed fail-closed fix: throw a CheckpointGapError when startLedger is ahead of the checkpoint. Payout to a Base USDC address."},
+ {"user": {"login": "Ljunqiang", "type": "User"}, "created_at": "2026-10-10T09:00:00Z", "body": "Submitted PR #74: checkpointed run resumes from lastProcessedLedger + 1 and ignores startLedger; new predicate logs a warning with the rebuild reason."},
+ {"user": {"login": "camesenin", "type": "User"}, "created_at": "2026-10-11T09:00:00Z", "body": "Proposed an audit approach: log the skipped interval, require operator confirmation or record gap metadata, integration test. Payout options listed."},
+ {"user": {"login": "bamos9065", "type": "User"}, "created_at": "2026-10-12T09:00:00Z", "body": "Asked about remaining funded tasks, eligibility, payment and acceptance terms."},
+ {"user": {"login": "urielit1313-creator", "type": "User"}, "created_at": "2026-10-12T15:00:00Z", "body": "Submitted PR #120: computeLedgerRange resumes from lastProcessedLedger + 1 when a checkpoint exists, startLedgerAheadOfCheckpoint helper, warning pointing to the rebuild procedure, unit and orchestration tests. Base USDC payout requested."}
+]

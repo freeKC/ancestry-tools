@@ -1,0 +1,7 @@
+[
+ {"number": 60, "title": "Fixes #45: stop silently skipping ledgers when INDEXER_START_LEDGER is raised", "body": "Fixes #45", "state": "open", "user": {"login": "fixwright"}},
+ {"number": 74, "title": "fix: never let a raised start ledger skip past the checkpoint (#45)", "body": "#45", "state": "open", "user": {"login": "Ljunqiang"}},
+ {"number": 83, "title": "Repair CI test permissions and verify checkpoint failure paths", "body": "Fixes #45", "state": "open", "user": {"login": "mumusama75"}},
+ {"number": 102, "title": "fix(indexer): never let a raised start ledger skip past a checkpoint", "body": "Fixes #45", "state": "open", "user": {"login": "yggdrasilworld"}},
+ {"number": 120, "title": "fix(indexer): stop silently skipping ledgers when start ledger is raised (fixes #45)", "body": "fixes #45", "state": "open", "user": {"login": "urielit1313-creator"}}
+]

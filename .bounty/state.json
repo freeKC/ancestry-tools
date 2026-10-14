@@ -1,0 +1,325 @@
+{
+  "meta": {
+    "saved_at": "2026-10-14T06:41:54+00:00"
+  },
+  "candidates": {},
+  "items": {
+    "SUSU-LABS/susu-indexer#40": {
+      "bounty": {
+        "owner": "SUSU-LABS",
+        "repo": "susu-indexer",
+        "number": 40,
+        "title": "[Bounty: $70] Replace the per-group N+1 updates in upsertGroupState",
+        "amount_usd": null,
+        "platform": "inconnu",
+        "labels": [],
+        "created_at": "2026-10-09T10:00:00Z",
+        "updated_at": null,
+        "language": "TypeScript",
+        "state": "open",
+        "assignees": [],
+        "comments_count": 0,
+        "body": "supabase/functions/_shared/db.ts (lines 345-371) awaits one UPDATE per group, using .eq('contract_id', ...) inside a for loop. Each update is a separate HTTP round trip, so runs that touch many groups pay extra latency and failure risk.\n\nProposed change: a single bulk write, such as an upsert with explicit columns, an RPC, or an UPDATE ... FROM (VALUES ...), while keeping the rule that zero updated rows is an error.\n\nAcceptance criteria:\n- Reconciling N groups uses O(1) DB round trips, not N.\n- Reconciling a group with no groups row still fails loudly.\n- Existing orchestration tests for group state writes still pass.\n\nSuggested label: performance. ETA: 48 hours.",
+        "source": "",
+        "discovered_at": "2026-10-14T04:48:18+00:00",
+        "prescore": null,
+        "prescore_notes": [],
+        "key": "SUSU-LABS/susu-indexer#40",
+        "url": "https://github.com/SUSU-LABS/susu-indexer/issues/40"
+      },
+      "stage": "recherche",
+      "checkpoint": "Choisir une tâche et vérifier ses conditions",
+      "analysis": {
+        "score": 0.0,
+        "verdict": "NON",
+        "reasons": [
+          "montant 70 $ (+3)",
+          "27 étoiles (+4)",
+          "langage TypeScript dans le profil (+10)",
+          "qualité de la spécification 4/10 (+4)",
+          "suite de tests présente (+5)",
+          "concurrence : 3 réclamation(s), 4 PR ouverte(s) (-90)"
+        ],
+        "red_flags": [
+          "3 personnes ont déjà réclamé la tâche (/attempt, /claim, PR)",
+          "4 PR ouvertes concurrentes"
+        ],
+        "amount_usd": 70.0,
+        "claims": 3,
+        "claimants": [
+          "fixwright",
+          "mumusama75",
+          "urielit1313-creator"
+        ],
+        "linked_prs_open": 4,
+        "linked_prs_merged": 0,
+        "linked_prs_closed": 0,
+        "age_days": 4.9,
+        "repo_stars": 27,
+        "repo_is_fork": false,
+        "repo_archived": false,
+        "repo_language": "TypeScript",
+        "repo_pushed_at": "2026-10-09T12:34:56Z",
+        "repo_rewarded_before": null,
+        "bot_bounty_comment": false,
+        "tests_present": true,
+        "spec_quality": 4,
+        "assigned": false,
+        "conditions": [
+          "Acceptance criteria:"
+        ],
+        "analyzed_at": "2026-10-14T06:41:54+00:00"
+      },
+      "workspace": null,
+      "branch": null,
+      "base_branch": null,
+      "stack": {},
+      "verify_results": [],
+      "pr_url": null,
+      "pr_number": null,
+      "pr_state": null,
+      "paid": false,
+      "paid_note": null,
+      "notes": [],
+      "history": [
+        {
+          "at": "2026-10-14T04:48:18+00:00",
+          "stage": "recherche",
+          "note": "ajoutée au pipeline"
+        },
+        {
+          "at": "2026-10-14T04:48:18+00:00",
+          "stage": "recherche",
+          "note": "analyse : verdict NON (score 0.0)"
+        },
+        {
+          "at": "2026-10-14T04:54:01+00:00",
+          "stage": "recherche",
+          "note": "analyse : verdict NON (score 0.0)"
+        },
+        {
+          "at": "2026-10-14T06:41:54+00:00",
+          "stage": "recherche",
+          "note": "analyse : verdict NON (score 0.0)"
+        }
+      ],
+      "created_at": "2026-10-14T04:48:18+00:00",
+      "updated_at": "2026-10-14T06:41:54+00:00"
+    },
+    "SUSU-LABS/susu-indexer#45": {
+      "bounty": {
+        "owner": "SUSU-LABS",
+        "repo": "susu-indexer",
+        "number": 45,
+        "title": "[Bounty: $70] Stop silently skipping ledgers when INDEXER_START_LEDGER is raised",
+        "amount_usd": null,
+        "platform": "inconnu",
+        "labels": [],
+        "created_at": "2026-10-09T10:00:00Z",
+        "updated_at": null,
+        "language": "TypeScript",
+        "state": "open",
+        "assignees": [],
+        "comments_count": 0,
+        "body": "Context: In supabase/functions/_shared/checkpoint.ts (lines 68-70), the start ledger is computed as max(lastProcessedLedger + 1, startLedger). Once a checkpoint exists, raising INDEXER_START_LEDGER (or indexer_checkpoints.start_ledger) moves the starting point forward and skips every ledger in between. This happens with no log, warning, or alert, leaving a permanent, invisible gap.\n\nProposed change: Use startLedger only when no checkpoint exists. When a checkpoint exists and startLedger is more than one ahead of it, ignore startLedger, or fail and log a warning and raise an alert.\n\nAcceptance criteria:\n- With a checkpoint present, computeLedgerRange never advances past lastProcessedLedger + 1 because of a higher startLedger.\n- A test covers a raised startLedger and asserts a warning or failure instead of a silent skip.\n- The documented rebuild procedure still works.\n\nSuggested label: correctness. ETA: 48 hours.",
+        "source": "",
+        "discovered_at": "2026-10-14T04:48:18+00:00",
+        "prescore": null,
+        "prescore_notes": [],
+        "key": "SUSU-LABS/susu-indexer#45",
+        "url": "https://github.com/SUSU-LABS/susu-indexer/issues/45"
+      },
+      "stage": "livraison",
+      "checkpoint": "Valider la soumission",
+      "analysis": {
+        "score": 0.0,
+        "verdict": "NON",
+        "reasons": [
+          "montant 70 $ (+3)",
+          "27 étoiles (+4)",
+          "langage TypeScript dans le profil (+10)",
+          "qualité de la spécification 4/10 (+4)",
+          "suite de tests présente (+5)",
+          "concurrence : 3 réclamation(s), 5 PR ouverte(s) (-105)"
+        ],
+        "red_flags": [
+          "3 personnes ont déjà réclamé la tâche (/attempt, /claim, PR)",
+          "5 PR ouvertes concurrentes"
+        ],
+        "amount_usd": 70.0,
+        "claims": 3,
+        "claimants": [
+          "fixwright",
+          "Ljunqiang",
+          "urielit1313-creator"
+        ],
+        "linked_prs_open": 5,
+        "linked_prs_merged": 0,
+        "linked_prs_closed": 0,
+        "age_days": 4.8,
+        "repo_stars": 27,
+        "repo_is_fork": false,
+        "repo_archived": false,
+        "repo_language": "TypeScript",
+        "repo_pushed_at": "2026-10-09T12:34:56Z",
+        "repo_rewarded_before": null,
+        "bot_bounty_comment": false,
+        "tests_present": true,
+        "spec_quality": 4,
+        "assigned": false,
+        "conditions": [
+          "Acceptance criteria:"
+        ],
+        "analyzed_at": "2026-10-14T04:54:01+00:00"
+      },
+      "workspace": "/home/user/ancestry-tools/.bounty/work/SUSU-LABS__susu-indexer",
+      "branch": "fix/45-start-ledger-above-checkpoint",
+      "base_branch": "main",
+      "stack": {
+        "stack": [
+          "deno"
+        ],
+        "install": [],
+        "test": [
+          "deno task test"
+        ],
+        "lint": [
+          "deno task check",
+          "deno task fmt:check",
+          "deno task lint"
+        ],
+        "notes": [],
+        "detected_at": "2026-10-14T04:54:02+00:00"
+      },
+      "verify_results": [
+        {
+          "command": "deno task test",
+          "returncode": 0,
+          "duration_s": 55.6,
+          "output_tail": "0m\nreturns nothing when the range holds no events ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(370µs)\u001b[0m\nfollows the cursor and returns every page ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(521µs)\u001b[0m\nreads a ledger whose events overflow one page ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(346µs)\u001b[0m\nkeeps the events inside the range and stops at the first one past it ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(315µs)\u001b[0m\nfails when a full page arrives without a cursor ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(1ms)\u001b[0m\nfails when the cursor stops advancing ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(390µs)\u001b[0m\nrejects an inverted range rather than scanning nothing ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(672µs)\u001b[0m\nasks for no contracts without calling the RPC ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(142µs)\u001b[0m\nsends the ledger range once and a cursor thereafter ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(220µs)\u001b[0m\ncarries the contract filter on every page ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(267µs)\u001b[0m\nsplits a watch list the RPC would reject ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(283µs)\u001b[0m\nchunks an evenly divisible watch list without an empty trailing request ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(233µs)\u001b[0m\nsends one request when the watch list fits the limit ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(106µs)\u001b[0m\nde-duplicates the watch list so a repeated ID cannot waste a slot ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(203µs)\u001b[0m\nreads every chunk in full, not just the first ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(203µs)\u001b[0m\n\u001b[0m\u001b[38;5;245mrunning 16 tests from ./tests/state_test.ts\u001b[0m\nsums amounts exactly, past what a double can hold ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(1ms)\u001b[0m\nsums an empty set to zero ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(167µs)\u001b[0m\nrefuses an amount that is not an integer string ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(1ms)\u001b[0m\na group with no events is open and zeroed ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(437µs)\u001b[0m\nstatus follows the lifecycle events the chain emitted ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(363µs)\u001b[0m\ncounts members from the recorded joins ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(188µs)\u001b[0m\nrounds come from the events that named them ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(206µs)\u001b[0m\ntotals are the sums of the recorded facts ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(159µs)\u001b[0m\nderiving twice from the same facts gives the same state ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(367µs)\u001b[0m\na group that has never been derived is not reported as divergent ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(402µs)\u001b[0m\nagreement between stored and derived state is silent ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(196µs)\u001b[0m\na drifted total is reported ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(219µs)\u001b[0m\nevery kind of drift is reported ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(195µs)\u001b[0m\nthe captured group derives its whole lifecycle from its events ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(143µs)\u001b[0m\nthe captured group takes in exactly what it paid out and charged ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(266µs)\u001b[0m\nre-deriving the captured group agrees with itself ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(125µs)\u001b[0m\n\u001b[0m\u001b[38;5;245mrunning 7 tests from ./tests/stellar_test.ts\u001b[0m\nparseEventOrdinal reads the ordinal from a real paging token ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(1ms)\u001b[0m\nparseEventOrdinal uses the last separator ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(143µs)\u001b[0m\nparseEventOrdinal refuses tokens it does not understand ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(218µs)\u001b[0m\ngetEvents derives the ledger-scoped ordinal, not the page position ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(9ms)\u001b[0m\ngetEvents records whether the emitting call succeeded ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(657µs)\u001b[0m\ngetEvents skips entries it cannot identify ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(472µs)\u001b[0m\ngetEvents fails loudly on a paging token it cannot parse ... \u001b[0m\u001b[32mok\u001b[0m \u001b[0m\u001b[38;5;245m(919µs)\u001b[0m\n\n\u001b[0m\u001b[32mok\u001b[0m | 234 passed | 0 failed \u001b[0m\u001b[38;5;245m(55s)\u001b[0m\n\n\n\u001b[0m\u001b[32mTask\u001b[0m \u001b[0m\u001b[36mtest\u001b[0m deno test --allow-env --allow-read --allow-net=deno.land,jsr.io,registry.npmjs.org tests/\n",
+          "ran_at": "2026-10-14T06:41:52+00:00",
+          "ok": true
+        },
+        {
+          "command": "deno task check",
+          "returncode": 0,
+          "duration_s": 1.9,
+          "output_tail": "\n\u001b[0m\u001b[32mTask\u001b[0m \u001b[0m\u001b[36mcheck\u001b[0m deno check supabase/functions/indexer/index.ts\n\u001b[0m\u001b[32mCheck\u001b[0m supabase/functions/indexer/index.ts\n",
+          "ran_at": "2026-10-14T06:41:53+00:00",
+          "ok": true
+        },
+        {
+          "command": "deno task fmt:check",
+          "returncode": 0,
+          "duration_s": 0.0,
+          "output_tail": "\n\u001b[0m\u001b[32mTask\u001b[0m \u001b[0m\u001b[36mfmt:check\u001b[0m deno fmt --check\nChecked 63 files\n",
+          "ran_at": "2026-10-14T06:41:54+00:00",
+          "ok": true
+        },
+        {
+          "command": "deno task lint",
+          "returncode": 0,
+          "duration_s": 0.1,
+          "output_tail": "\n\u001b[0m\u001b[32mTask\u001b[0m \u001b[0m\u001b[36mlint\u001b[0m deno lint\nChecked 41 files\n",
+          "ran_at": "2026-10-14T06:41:54+00:00",
+          "ok": true
+        }
+      ],
+      "pr_url": null,
+      "pr_number": null,
+      "pr_state": null,
+      "paid": false,
+      "paid_note": null,
+      "notes": [
+        "Arbitrage 1 : ignorer le start ledger et avertir plutôt qu'échouer (option explicitement offerte par l'issue ; échouer stopperait l'indexation et ferait croître le retard).",
+        "Arbitrage 2 : 'raise an alert' rendu par un avertissement structuré dans les logs et un champ warnings dans la réponse, sans nouvelle migration (CONTRIBUTING : toute migration RLS exige une revue préalable des mainteneurs).",
+        "Arbitrage 3 : les deux sources sont contrôlées (colonne indexer_checkpoints.start_ledger, qui causait réellement le saut, et INDEXER_START_LEDGER, ignorée en silence) ; aucune PR concurrente ne couvre les deux.",
+        "Commit préalable séparé : CI verte sur main (fmt des SVG exclus, imports inutilisés, stub rpc), car tous les checks échouaient sur main et donc sur chaque PR."
+      ],
+      "history": [
+        {
+          "at": "2026-10-14T04:48:18+00:00",
+          "stage": "recherche",
+          "note": "ajoutée au pipeline"
+        },
+        {
+          "at": "2026-10-14T04:48:18+00:00",
+          "stage": "recherche",
+          "note": "analyse : verdict NON (score 0.0)"
+        },
+        {
+          "at": "2026-10-14T04:52:18+00:00",
+          "stage": "recherche",
+          "note": "choix validé par l'utilisateur : L'utilisateur a délégué le choix (message du 14/10) : prime la moins disputée parmi celles visibles, test de bout en bout du pipeline"
+        },
+        {
+          "at": "2026-10-14T04:52:19+00:00",
+          "stage": "resolution",
+          "note": "espace de travail prêt : /home/user/ancestry-tools/.bounty/work/SUSU-LABS__susu-indexer (branche bounty/45-tache sur main)"
+        },
+        {
+          "at": "2026-10-14T04:54:01+00:00",
+          "stage": "recherche",
+          "note": "analyse : verdict NON (score 0.0)"
+        },
+        {
+          "at": "2026-10-14T04:54:02+00:00",
+          "stage": "recherche",
+          "note": "choix validé par l'utilisateur : Branche renommée après correction du titre hors ligne"
+        },
+        {
+          "at": "2026-10-14T04:54:02+00:00",
+          "stage": "resolution",
+          "note": "espace de travail prêt : /home/user/ancestry-tools/.bounty/work/SUSU-LABS__susu-indexer (branche bounty/45-bounty-70-stop-silently-skipping-ledgers sur main)"
+        },
+        {
+          "at": "2026-10-14T04:59:32+00:00",
+          "stage": "verification",
+          "note": "vérification : échec (4 commande(s))"
+        },
+        {
+          "at": "2026-10-14T05:00:47+00:00",
+          "stage": "verification",
+          "note": "vérification : succès (4 commande(s))"
+        },
+        {
+          "at": "2026-10-14T05:01:07+00:00",
+          "stage": "verification",
+          "note": "note : Arbitrage 1 : ignorer le start ledger et avertir plutôt qu'échouer (option explicitement offerte par l'issue ; échouer stopperait l'indexation et ferait croître le retard)."
+        },
+        {
+          "at": "2026-10-14T05:01:07+00:00",
+          "stage": "verification",
+          "note": "note : Arbitrage 2 : 'raise an alert' rendu par un avertissement structuré dans les logs et un champ warnings dans la réponse, sans nouvelle migration (CONTRIBUTING : toute migration RLS exige une revue préalable des mainteneurs)."
+        },
+        {
+          "at": "2026-10-14T05:01:07+00:00",
+          "stage": "verification",
+          "note": "note : Arbitrage 3 : les deux sources sont contrôlées (colonne indexer_checkpoints.start_ledger, qui causait réellement le saut, et INDEXER_START_LEDGER, ignorée en silence) ; aucune PR concurrente ne couvre les deux."
+        },
+        {
+          "at": "2026-10-14T05:01:07+00:00",
+          "stage": "verification",
+          "note": "note : Commit préalable séparé : CI verte sur main (fmt des SVG exclus, imports inutilisés, stub rpc), car tous les checks échouaient sur main et donc sur chaque PR."
+        },
+        {
+          "at": "2026-10-14T05:01:56+00:00",
+          "stage": "livraison",
+          "note": "proposition préparée (PR.md, CHECKLIST.md, changes.patch)"
+        },
+        {
+          "at": "2026-10-14T06:41:54+00:00",
+          "stage": "verification",
+          "note": "vérification : succès (4 commande(s))"
+        },
+        {
+          "at": "2026-10-14T06:41:54+00:00",
+          "stage": "livraison",
+          "note": "proposition préparée (PR.md, CHECKLIST.md, changes.patch) ; 0 écart(s) aux règles de publication"
+        }
+      ],
+      "created_at": "2026-10-14T04:48:18+00:00",
+      "updated_at": "2026-10-14T06:41:54+00:00"
+    }
+  }
+}

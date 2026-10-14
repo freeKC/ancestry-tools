@@ -1,0 +1,8 @@
+[
+ {"user": {"login": "fixwright", "type": "User"}, "created_at": "2026-10-09T11:00:00Z", "body": "/claim\nI'll take this one."},
+ {"user": {"login": "michaelwoolum50-cmyk", "type": "User"}, "created_at": "2026-10-09T12:00:00Z", "body": "Proposed a single bulk upsert on group_stats with onConflict contract_id; tests with 50 groups spying on fetch. Crypto payout address included."},
+ {"user": {"login": "mumusama75", "type": "User"}, "created_at": "2026-10-10T09:00:00Z", "body": "Resolved in PR #85: migration with a reconcile_group_states RPC doing one bulk UPDATE, returns missing contract_ids and throws if any group row is missing. 230 tests passing."},
+ {"user": {"login": "camesenin", "type": "User"}, "created_at": "2026-10-11T09:00:00Z", "body": "Analysis of pool saturation; proposed single batch statement or multi-row upsert in one transaction plus Deno test and benchmark. Payout details."},
+ {"user": {"login": "Felix1451991535", "type": "User"}, "created_at": "2026-10-12T09:00:00Z", "body": "Asked whether the bounty is still open and funded at $70 and how payment is released after merge."},
+ {"user": {"login": "urielit1313-creator", "type": "User"}, "created_at": "2026-10-12T15:00:00Z", "body": "Resolved in PR #123: pre-flight selectIn on groups that throws for missing rows, then one bulk upsert with onConflict contract_id. Tests for 1 select plus 1 upsert. Payout address included."}
+]

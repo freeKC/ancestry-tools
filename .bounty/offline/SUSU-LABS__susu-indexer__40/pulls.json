@@ -1,0 +1,6 @@
+[
+ {"number": 63, "title": "Fixes #40: replace the per-group N+1 updates in upsertGroupState with a single bulk RPC", "body": "Fixes #40", "state": "open", "user": {"login": "fixwright"}},
+ {"number": 85, "title": "Restrict bulk reconciliation RPC and test execution privileges", "body": "Fixes #40", "state": "open", "user": {"login": "mumusama75"}},
+ {"number": 107, "title": "perf(db): replace per-group updates with one apply_group_states RPC", "body": "Fixes #40", "state": "open", "user": {"login": "yggdrasilworld"}},
+ {"number": 123, "title": "fix(db): replace per-group N+1 updates in upsertGroupState with O(1) bulk upsert (fixes #40)", "body": "fixes #40", "state": "open", "user": {"login": "urielit1313-creator"}}
+]
