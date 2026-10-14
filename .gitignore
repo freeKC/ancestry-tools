@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Pipeline de primes : clones de travail et réglages personnels (jamais versionnés)
+.bounty/work/
+bounty.local.toml

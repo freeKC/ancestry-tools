@@ -1,0 +1,39 @@
+# Configuration du pipeline de primes (python -m bounty ...).
+# Toute clé absente prend la valeur par défaut de bounty/config.py.
+# Réglages personnels (identité git, mots proscrits) : bounty.local.toml, non versionné.
+
+[profil]
+langages = ["Python", "TypeScript", "JavaScript"]
+github_login = "freeKC"
+montant_min = 20          # dollars
+montant_max = 5000
+age_max_jours = 120       # au-delà, l'issue est probablement bloquée ou déjà traitée
+claims_max = 2            # /attempt ou /claim déjà postés par d'autres
+prs_ouvertes_max = 1      # PR concurrentes ouvertes tolérées
+
+[sources]
+github_labels = ["💎 Bounty", "bounty", "💰 Bounty"]
+recherche_jours = 90
+pages_max = 3
+# Dépôts pièges observés en octobre 2026 : milliers d'issues « à prime » jamais payées,
+# forks avec labels copiés, dépôts de démonstration.
+exclure_proprietaires = [
+  "SecureBananaLabs", "UnsafeLabs", "WillSmithTE", "ApexOpsStudio", "habibdxb01",
+  "ClankerNation", "PG-AGI", "tine1117", "zhangjiayang6835-cyber", "freedom-winds", "dev-kp-eloper",
+]
+# Fragments de labels (sans casse, par inclusion).
+exclure_labels = ["no humans", "on-hold", "rewarded", "wontfix"]
+exclure_mots = ["needs-game", "payout wallet", "no humans", "crypto-eligible"]
+
+[workspace]
+dossier = ".bounty/work"        # clones (ignoré par git)
+etat = ".bounty/state.json"     # état du pipeline (versionné)
+dossiers = ".bounty/dossiers"   # dossiers d'analyse, briefs, PR (versionnés)
+timeout_tests_s = 1800
+
+[github]
+token_env = "GITHUB_TOKEN"
+
+[livraison.claim]
+algora = "/claim #{n}"
+opire = "/opire claim #{n}"
