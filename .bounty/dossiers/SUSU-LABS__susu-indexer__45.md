@@ -8,8 +8,8 @@ https://github.com/SUSU-LABS/susu-indexer/issues/45
 | Montant | 70 $ |
 | Plateforme | inconnu |
 | Langage | TypeScript |
-| Étape | livraison |
-| Intervention attendue | Valider la soumission |
+| Étape | paiement |
+| Intervention attendue | Recevoir le paiement sur son compte |
 | Verdict | **NON** (score 0.0/100) |
 | Âge de l'issue | 4.8 j |
 | Concurrence | 3 réclamation(s), 5 PR ouverte(s), 0 fusionnée(s) |
@@ -54,8 +54,8 @@ Suggested label: correctness. ETA: 48 hours.
 | recherche | Repérer les primes et analyser les demandes | Choisir une tâche et vérifier ses conditions |
 | resolution | Lire le code, reproduire le problème, programmer | Arbitrer les points ambigus |
 | verification | Exécuter les tests et examiner les changements | Vérifier que le résultat répond à la demande |
-| ➡️ livraison | Préparer la proposition et son explication | Valider la soumission |
-| paiement | Suivre le statut | Recevoir le paiement sur son compte |
+| livraison | Préparer la proposition et son explication | Valider la soumission |
+| ➡️ paiement | Suivre le statut | Recevoir le paiement sur son compte |
 
 ## Historique
 - 2026-10-14T04:48:18+00:00 [recherche] ajoutée au pipeline
@@ -74,3 +74,4 @@ Suggested label: correctness. ETA: 48 hours.
 - 2026-10-14T05:01:56+00:00 [livraison] proposition préparée (PR.md, CHECKLIST.md, changes.patch)
 - 2026-10-14T06:41:54+00:00 [verification] vérification : succès (4 commande(s))
 - 2026-10-14T06:41:54+00:00 [livraison] proposition préparée (PR.md, CHECKLIST.md, changes.patch) ; 0 écart(s) aux règles de publication
+- 2026-10-14T06:44:56+00:00 [paiement] PR #128 ouverte par l'utilisateur avec soumettre.py (fork freeKC/susu-indexer) ; revue demandée au propriétaire du code
